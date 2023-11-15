@@ -1,10 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+import express from 'express';
+import bodyParser from 'body-parser';
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 const AmazonCognitoIdentityServiceProvider = AmazonCognitoIdentity.CognitoUserPool;
 const AmazonCognitoIdentityCredentials = AmazonCognitoIdentity.CognitoIdentityCredentials;
 
-const app = express();
+const app= express();
 app.use(bodyParser.json());
 
 app.get('/',(req,res)=>{
