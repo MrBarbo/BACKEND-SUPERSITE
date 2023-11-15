@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 const AmazonCognitoIdentityServiceProvider = AmazonCognitoIdentity.CognitoUserPool;
 const AmazonCognitoIdentityCredentials = AmazonCognitoIdentity.CognitoIdentityCredentials;
-
+//To deploy
 const app= express();
 app.use(bodyParser.json());
 
