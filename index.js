@@ -112,6 +112,15 @@ app.post('/genimg', async (req, res) => {
     res.send(image.data[0]["url"])
 });
 
+//Método de mejoramiento de texto
+app.post('/bettertext', async (req, res) => {
+  prompttext = "mejora el siguiente texto para impulsar su impacto"+req.body.name
+  const completion = await openai.completions.create({
+    model: 'gpt-3.5-turbo-instruct',
+    prompt: prompttext
+    });
+  res.send(completion.choices[0]["text"])
+});
 
 //Inicio del servidor
 app.listen(process.env.PORT, () => {
