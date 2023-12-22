@@ -117,7 +117,8 @@ app.post('/bettertext', async (req, res) => {
   var prompttext = "mejora el siguiente texto para impulsar su impacto"+req.body.name
   const completion = await openai.completions.create({
     model: 'gpt-3.5-turbo-instruct',
-    prompt: prompttext
+    prompt: prompttext,
+    max_tokens: 150
     });
   res.send(completion.choices[0]["text"])
 });
