@@ -105,7 +105,7 @@ app.post('/translate', async (req, res) => {
 });
 
 const openai = new OpenAI(
-  {apiKey: "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"}
+  {apiKey: "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"}
   );
 //Método de generación de imágenes
 app.post('/genimg', async (req, res) => {
