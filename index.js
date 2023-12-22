@@ -114,7 +114,7 @@ app.post('/genimg', async (req, res) => {
 
 //Método de mejoramiento de texto
 app.post('/bettertext', async (req, res) => {
-  prompttext = "mejora el siguiente texto para impulsar su impacto"+req.body.name
+  var prompttext = "mejora el siguiente texto para impulsar su impacto"+req.body.name
   const completion = await openai.completions.create({
     model: 'gpt-3.5-turbo-instruct',
     prompt: prompttext
