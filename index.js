@@ -5,6 +5,8 @@ const AmazonCognitoIdentityServiceProvider = AmazonCognitoIdentity.CognitoUserPo
 const AmazonCognitoIdentityCredentials = AmazonCognitoIdentity.CognitoIdentityCredentials;
 import cors from "cors"
 import 'dotenv/config'
+import OpenAI from "openai";
+import axios from 'axios';
 
 
 //To deploy
@@ -13,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.get('/',(req,res)=>{
-    res.send("hola mundo")
+    res.send("testing")
 });
 
 // Configure Amazon Cognito
@@ -78,10 +80,41 @@ app.post('/login', (req, res) => {
   });
 });
 
-app.get("/page/:username",(req, res) =>{
-    //Trae de la db la información
+//Metodo de traducción
+app.post('/translate', async (req, res) => {
+  try {
+    const response = await axios.post(
+      "https://api-free.deepl.com/v2/translate",
+      new URLSearchParams({
+        text: req.body.text,
+        target_lang: req.body.target_lang,
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': process.env.DEEPLTOKEN,
+        },
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
+const openai = new OpenAI(
+  {apiKey: "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"}
+  );
+//Método de generación de imágenes
+app.post('/genimg', async (req, res) => {
+      const image = await openai.images.generate({ model: "dall-e-3", prompt: req.body.name });
+    res.send(image.data[0]["url"])
+});
+
+
+//Inicio del servidor
 app.listen(process.env.PORT, () => {
   console.log('Server is running on port 3100');
 });
